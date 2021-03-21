@@ -11,27 +11,32 @@
 
     <h1>Tic Tac Toe</h1>
 
-    <div id="header">
-        <div id="select">Select character: </div>
-        <button type="button">X</button>
-        <button type="button">O</button>
+    <!-- <div id="opponent-header" class="header">
+        <div id="opponent-select" class="select">Select opponent: </div>
+        <button id="opponent-human" type="button">Human</button>
+        <button id="opponent-computer" type="button">Placeholder</button>
+    </div> -->
+
+    <div id="start-header" class="header">
+        <button type="button" id="start-button">Start</button>
     </div>
+
 
     <table id="gameboard">
         <tr>
-            <td></td>
-            <td class="vert"></td>
-            <td></td>
+            <td id="topL"></td>
+            <td id="topM" class="vert"></td>
+            <td id="topR"></td>
         </tr>
         <tr>
-            <td class="hori"></td>
-            <td class="vert hori"></td>
-            <td class="hori"></td>
+            <td id="midL" class="hori"></td>
+            <td id="midM" class="vert hori"></td>
+            <td id="midR" class="hori"></td>
         </tr>
         <tr>
-            <td></td>
-            <td class="vert"></td>
-            <td></td>
+            <td id="botL"></td>
+            <td id="botM" class="vert"></td>
+            <td id="botR"></td>
         </tr>
     </table>
 

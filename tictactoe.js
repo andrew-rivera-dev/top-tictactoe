@@ -1,19 +1,63 @@
-//gameBoard manages game state
 const gameBoard = (() => {
-    let board = ['X', 'O'];
-    
-    const player1 = Player('X');
-    const player2 = Player('O');
+    let board = [];
 
-    const addMove = (player, pos) => board.insert(pos, player.getChar());
+    const boardDictionary = {
+        'topL': 0,
+        'topM': 1,
+        'topR': 2,
+        'midL': 3,
+        'midM': 4,
+        'midR': 5,
+        'botL': 6,
+        'botM': 7,
+        'botR': 8,
+    };
+
+    function init() {
+        bindEvents();
+    }
+
+    function bindEvents() {
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => cell.addEventListener('click', gameBoard.addMove(cell, boardDictionary[cell.id], gameFlow.getTurn())));
+    }
+
+    function addMove(elem, pos, char) {
+        board.splice(pos, 1, char);
+        elem.innerHTML = char;
+        gameFlow.switchTurn();
+    }
+
+    function currentBoard() {
+        return board;
+    }
+
+    return {
+        init,
+        addMove,
+        currentBoard,
+    }
 })();
 
-//displayController manages html
-const displayController = () => {
+const startGame = (() => {
+    const startButton = document.getElementById('start-button');
+    startButton.addEventListener('click', gameBoard.init);
+})();
 
-}
 
-const Player = (char) => {
-    const getChar = () => char;
-    return {char}
-}
+const gameFlow = (() => {
+    let currentTurn = 'X';
+
+    function getTurn() {
+        return currentTurn;
+    }
+
+    function switchTurn() {
+        currentTurn = currentTurn === 'X' ? 'O': 'X';
+    }
+
+    return {
+        getTurn,
+        switchTurn,
+    }
+})();
