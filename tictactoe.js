@@ -99,11 +99,10 @@ const gameFlow = (() => {
             return indexes;
         }
 
-        function arrayEquals(arr1, arr2) {
+        function arrayIncludes(arr1, arr2) {
             return Array.isArray(arr1) &&
             Array.isArray(arr2) &&
-            arr1.length === arr2.length &&
-            arr1.every((val, index) => val === arr2[index]);
+            arr1.every(val => arr2.includes(val));
         }
 
         const winCombos = [
@@ -121,8 +120,8 @@ const gameFlow = (() => {
         const oBoard = getAllIndexes(b, 'O');
 
         for (let i = 0; i < winCombos.length; i++) {
-            if (arrayEquals(winCombos[i], xBoard)) return ['X\'s win!', true];
-            else if (arrayEquals(winCombos[i], oBoard)) return ['O\'s win!', true];
+            if (arrayIncludes(winCombos[i], xBoard)) return ['X\'s win!', true];
+            else if (arrayIncludes(winCombos[i], oBoard)) return ['O\'s win!', true];
             else if (b.every(x => x !== null)) return ['It\'s a draw!', true];
         }
         return [null, false];
