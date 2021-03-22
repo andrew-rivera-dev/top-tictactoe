@@ -60,14 +60,17 @@ const gameBoard = (() => {
     }
 
     function resetBoard() {
-        board = new Array(9).fill(null);
-        render();
+        board.fill(null);
+        gameFlow.setTurn('X');
+        cells.forEach(cell => cell.innerHTML = '');
+        init();
     }
 
     return {
         init,
         addMove,
         currentBoard,
+        resetBoard,
     }
 })();
 
@@ -76,6 +79,10 @@ const gameFlow = (() => {
 
     function getTurn() {
         return currentTurn;
+    }
+
+    function setTurn(char) {
+        currentTurn = char;
     }
 
     function switchTurn() {
@@ -123,6 +130,7 @@ const gameFlow = (() => {
 
     return {
         getTurn,
+        setTurn,
         switchTurn,
         gameOver,
     }
@@ -131,4 +139,9 @@ const gameFlow = (() => {
 const startGame = (() => {
     const startButton = document.getElementById('start-button');
     startButton.addEventListener('click', gameBoard.init);
+})();
+
+const resetGame = (() => {
+    const resetButton = document.getElementById('reset-button');
+    resetButton.addEventListener('click', gameBoard.resetBoard);
 })();
