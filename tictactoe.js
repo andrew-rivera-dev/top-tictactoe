@@ -21,21 +21,26 @@ const gameBoard = (() => {
 
     function cacheDom() {
         this.gameState = document.getElementById('game-state');
+        this.cells = document.querySelectorAll('td');
+    }
+
+    function addMoveEvent(e) {
+        e.stopPropagation();
+        addMove(this, boardDictionary[this.id], gameFlow.getTurn());
     }
 
     function bindEvents() {
-        const cells = document.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.addEventListener('click', function(e) {
-                e.stopPropagation();
-                addMove(cell, boardDictionary[cell.id], gameFlow.getTurn());
-            });
-        })
+        cells.forEach(cell => cell.addEventListener('click', addMoveEvent));
+    }
+
+    function unbindEvents() {
+        cells.forEach(cell => cell.removeEventListener('click', addMoveEvent));
     }
 
     function render() {
         if (gameFlow.gameOver(currentBoard())[1] === true) {
             this.gameState.innerHTML = gameFlow.gameOver(currentBoard())[0];
+            unbindEvents();
         } else {
             this.gameState.innerHTML = 'It\'s ' + gameFlow.getTurn() + '\'s turn';
         }
