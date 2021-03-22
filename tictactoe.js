@@ -88,6 +88,7 @@ const gameFlow = (() => {
     function switchTurn() {
         currentTurn = currentTurn === 'X' ? 'O': 'X';
     }
+    
 
     function gameOver(b) {
 
@@ -120,11 +121,13 @@ const gameFlow = (() => {
         const oBoard = getAllIndexes(b, 'O');
 
         for (let i = 0; i < winCombos.length; i++) {
+            console.log(xBoard);
+            console.log(arrayIncludes(winCombos[i], xBoard));
             if (arrayIncludes(winCombos[i], xBoard)) return ['X\'s win!', true];
             else if (arrayIncludes(winCombos[i], oBoard)) return ['O\'s win!', true];
-            else if (b.every(x => x !== null)) return ['It\'s a draw!', true];
         }
-        return [null, false];
+        if (b.every(x => x !== null)) {console.log('catching'); return ['It\'s a draw!', true];}
+        else return [null, false];
     }
 
     return {
