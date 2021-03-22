@@ -19,7 +19,12 @@ const gameBoard = (() => {
 
     function bindEvents() {
         const cells = document.querySelectorAll('td');
-        cells.forEach(cell => cell.addEventListener('click', gameBoard.addMove(cell, boardDictionary[cell.id], gameFlow.getTurn())));
+        cells.forEach(cell => {
+            cell.addEventListener('click', function(e) {
+                e.stopPropagation();
+                addMove(cell, boardDictionary[cell.id], gameFlow.getTurn());
+            });
+        })
     }
 
     function addMove(elem, pos, char) {
@@ -39,12 +44,6 @@ const gameBoard = (() => {
     }
 })();
 
-const startGame = (() => {
-    const startButton = document.getElementById('start-button');
-    startButton.addEventListener('click', gameBoard.init);
-})();
-
-
 const gameFlow = (() => {
     let currentTurn = 'X';
 
@@ -60,4 +59,9 @@ const gameFlow = (() => {
         getTurn,
         switchTurn,
     }
+})();
+
+const startGame = (() => {
+    const startButton = document.getElementById('start-button');
+    startButton.addEventListener('click', gameBoard.init);
 })();
