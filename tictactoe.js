@@ -34,7 +34,11 @@ const gameBoard = (() => {
     }
 
     function render() {
-        this.gameState.innerHTML = 'It\'s ' + gameFlow.getTurn() + '\'s turn';
+        if (gameFlow.gameOver(currentBoard())[1] === true) {
+            this.gameState.innerHTML = gameFlow.gameOver(currentBoard())[0];
+        } else {
+            this.gameState.innerHTML = 'It\'s ' + gameFlow.getTurn() + '\'s turn';
+        }
     }
 
     function addMove(elem, pos, char) {
@@ -48,6 +52,11 @@ const gameBoard = (() => {
 
     function currentBoard() {
         return board;
+    }
+
+    function resetBoard() {
+        board = new Array(9).fill(null);
+        render();
     }
 
     return {
