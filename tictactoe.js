@@ -126,7 +126,7 @@ const gameFlow = (() => {
             if (arrayIncludes(winCombos[i], xBoard)) return ['X\'s win!', true];
             else if (arrayIncludes(winCombos[i], oBoard)) return ['O\'s win!', true];
         }
-        if (b.every(x => x !== null)) {console.log('catching'); return ['It\'s a draw!', true];}
+        if (b.every(x => x !== null)) {return ['It\'s a draw!', true];}
         else return [null, false];
     }
 
